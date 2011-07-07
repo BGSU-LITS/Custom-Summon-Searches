@@ -1,67 +1,86 @@
-/* 	Styles for Custom Summon Search Tool by Matthew Reidsma
-	Grand Valley State University Libraries, 2011
-*/
-
+/**
+ * Styles for Custom Summon Search Tool by Matthew Reidsma
+ * Grand Valley State University Libraries, 2011
+ *
+ * Modified by BGSU Library ITS, 2011
+ * @author	Dave Widmer (dwidmer@bgsu.edu)
+ */
 body { 
 	background-color: #ffffff; 
-	font-family: Arial, Helvetica, Verdana, sans-serif; 
+	font-family: Helvetica, Arial, Verdana, sans-serif;
 	color: #000000;
-	font-size: 75%; 
+	font-size: 13px;
+	line-height:1.5em;
 }
 
-#site_wrapper { 
-	width: 52em; 
-	margin: auto; 
-	}
-
-input#keywords { 
-	width: 80%; 
+h1,h2,h3{
+	font-weight:normal;
 }
 
-div#lib_summon { 
-	margin-top: 1.5em; 
-}
-	  
-#lib_summon_code { 
-	border: 1px dashed #999; 
-	background: #eee; 
-	padding: 1em; 
-}	
+h1{ font-size:2em; }
+h2{ font-size:1.5em; }
+h3{ font-size:1.5em; }
 
-.box { 
-	width: 30%; 
-	float: left; 
-	margin-right: 3%; 
-	font-size: 1em; 
+small{
+	font-size:0.9em;
+	font-style: italic;
+	color:#777;
 }
 
-.box_head { 
-	padding: .4em; 
-	background-color: #c7c7c7; 
-	border: 1px solid #999999; 
-	margin-top: .4em;  
-	text-align: center;
+input[type="checkbox"], input[type="checkbox"] + label{
+	cursor:pointer;
 }
 
-.box_body { 
-	background-color: #eeeeee; 
-	padding: .4em; 
-	border-left: 1px solid #999999; 
-	border-right: 1px solid #999999; 
-	border-bottom: 1px solid #999999; 
+input[type="button"]{
+	margin-top:1em;
 }
 
-.refine { 
-	margin: .67em 0 .67em 8.33em; 
+#wrapper{
+	width:52em;
+	margin: 0 auto;
 }
 
-p.subject_instructions { 
-	margin: 0 8.33em; 
-	color: #666666; 
-	font-size: .83em;
+#keywords{
+	width:80%;
 }
 
-div.cleardates { 
-	margin-top: .83em; 
-	text-align: right; 
+.refine{
+	margin: -1em 0 1em 90px;
+}
+
+.box {
+	width:30%;
+	margin-right:4%;
+	display:inline-block;
+	vertical-align:top;
+	border:1px solid #AAA;
+	background-color:#EEE;
+}
+
+.box > div{
+	padding:.5em;
+}
+
+.box h3{
+	margin:0 0 .4em;
+	padding: .2em .4em;
+	border-bottom:1px solid #AAA;
+	font-size:1.25em;
+	background-color:#FF7300;
+	color:#FFF;
+	text-shadow:2px 2px 1px rgba(0,0,0,0.25);
+}
+
+#languages{
+	margin-right:0;
+}
+
+.hasDatepicker{
+	width:75px;
+}
+
+#summon_code{
+	padding:1em;
+	border:1px dotted #444;
+	background-color:#EEE;
 }
