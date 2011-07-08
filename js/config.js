@@ -3,7 +3,7 @@
  */
 var summon_config = {
 	// Your University identifier (the first thing in your summon url)
-	id: 'bgus',
+	id: 'bgsu',
 
 	/**
 	 * The list of configurable options.
@@ -26,17 +26,22 @@ var summon_config = {
 			name:"ContentType",
 			dom: "type_checkboxes",
 			items:[
-				"Journal Article","Newspaper Article","Trade Publication Article",
-				"Conference Proceeding","Book","eBook","Book Review","Music Score",
-				"Audio Recording"
+				"Newspaper Article","Journal Article","Book Review","eBook",
+				"Trade Publication Article","Book","Book Chapter","Audio Recording",
+				"Government Document","Conference Proceeding","Journal","Music Score",
+				"Dissertation","Web Resource","Personal Narrative","Map",
+				"Microfilm","Video Recording","Special Collection","Archival Material",
+				"Photograph","Report","Image","Realia","Library Holding","Computer File",
+				"Kit","Research Guide","Manuscript","Case","Newsletter"
 			]
 		},
 		{
 			name:"Language",
 			dom: 'language_checkboxes',
 			items:[
-				"English","Spanish","French","Dutch","Polish",
-				"Italian","Chinese","Japanese","Arabic"
+				"English","French","German","Spanish","Italian","Russian",
+				"Portuguese","Dutch","Slovak","Latin","Chinese","Japanese",
+				"Norwegian","Czech","Polish"
 			]
 		}
 	]
