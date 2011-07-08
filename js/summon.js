@@ -34,6 +34,8 @@ var summon = function($){
 		(input.checked) ?
 			$(input.target).show() :
 			$(input.target).hide();
+
+		updateForm();
 	},
 
 	/**
@@ -41,6 +43,7 @@ var summon = function($){
 	 */
 	clearBoxes = function(btn){
 		$(btn).prev('div').find(':checked').click();
+		updateForm();
 	},
 
 	// The div that holds the code that toggles on and off
@@ -105,7 +108,6 @@ var summon = function($){
 	// The keywords
 	keywords,
 	keywordsTarget,
-	keywordsSpan,
 
 	/**
 	 * Changes the search keywords.
@@ -114,29 +116,31 @@ var summon = function($){
 	 */
 	changeKeywords = function(str){
 		if (str){
-			$(keywordsSpan).html(str);
-			$(keywordsTarget).show();
+			$(keywordsTarget).html('&lt;input type="hidden" name="s.fvgf[]" value="SubjectTerms,or,'+str+'" /&gt;').show();
 		} else {
-			$(keywordsTarget).hide();
+			$(keywordsTarget).html("").hide();
 		}
+
+		updateForm();
 	},
 
 	// Date helpers
 	dateStart,
 	dateEnd,
 	dateTarget,
-	dateSpan,
 
 	/**
 	 * Changes the Published Date
 	 */
 	changeDate = function(){
 		if (dateStart.value && dateEnd.value){
-			$(dateSpan).html(dateStart.value+":"+dateEnd.value);
-			$(dateTarget).show();
+			var date = dateStart.value+":"+dateEnd.value;
+			$(dateTarget).html('&lt;input type="hidden" name="s.rf" value="PublicationDate,'+date+'" /&gt').show();
 		} else {
-			$(dateTarget).hide();
+			$(dateTarget).html("").hide();
 		}
+
+		updateForm();
 	},
 
 	/**
@@ -145,16 +149,34 @@ var summon = function($){
 	clearDates = function(){
 		dateStart.value = "", dateEnd.value = "";
 		$(dateTarget).hide();
+		updateForm();
+	},
+
+	// Try it form options element
+	tryItOptions = null,
+
+	// The div that holds the summon code
+	summonCode = null,
+
+	/**
+	 * Updates the try it form
+	 */
+	updateForm = function(){
+		$(tryItOptions).html($(codeToggles).find(":visible").text());
 	},
 
 	/**
 	 * "Constructor"
 	 *
-	 * @param	institution	The university identifier for summon
+	 * @param	id	The university identifier for summon
 	 * @param	options		The options that builds the page
 	 */
-	init = function(institution, options){
-		$('#ul_id').html(institution);
+	init = function(id, options){
+		$('#ul_id').html(id);
+		element("try_it_form").action = "http://"+id+".summon.serialssolutions.com/search";
+
+		// The try it div
+		tryItOptions = element('try_it');
 
 		// The div that holds the toggleable code
 		codeToggles = element('code_toggles');
@@ -169,15 +191,17 @@ var summon = function($){
 		dateStart = element('date_start');
 		dateEnd = element('date_end');
 		dateTarget = element('insertdate');
-		dateSpan = element('pubdate');
 
 		$("#date_start").datepicker();
 		$("#date_end").datepicker();
 
+		$('#search_filters .hasDatepicker').change(function(){
+			changeDate();
+		});
+
 		// Setup the search terms
 		keywords = element('keywords');
 		keywordsTarget = element('insertterms');
-		keywordsSpan = element('searchterms');
 
 		$(keywords).change(function(){
 			changeKeywords(this.value);
@@ -194,10 +218,8 @@ var summon = function($){
 			toggleCheckbox(this);
 		});
 
-		// and the dates
-		$('#search_filters .hasDatepicker').change(function(){
-			changeDate();
-		});
+		// Do a form update so it works if nothing is checked
+		updateForm();
 	};
 
 	// Only expose the public methods

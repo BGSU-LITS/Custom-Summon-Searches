@@ -85,30 +85,44 @@
 		</p>
 		<p class="refine"><small>Separate terms with commas.</small></p>
 
+		<h2>Try it!</h2>
+		<form method="GET" action="" target="_blank" id="try_it_form">
+			<input type="text" name="s.q" style="width:300px;" />
+			<input type="hidden" name="spellcheck" value="true" />
+			<span id="try_it"></span>
+			<input type="submit" value="Search" /> <small>Opens a new tab/window</small>
+		</form>
+
+		<p><em>Please note:</em> The form above is only to test if your search box will
+			work as you would like. To get the search box on your webpage you must
+			<strong>copy the HTML below</strong>.
+
+		<hr />
+
 		<h2>Copy this HTML:</h2>
 		<div id="summon_code">&lt;!-- Start of Custom Summon Search code --&gt;<br />
 
 &lt;form method="GET" action="http://<span id="ul_id"></span>.summon.serialssolutions.com/search"&gt;<br />
 
 &lt;input type="text" name="s.q" /&gt;<br />
-&lt;input type="hidden" name="spellcheck" value="true" /&gt;<br />
+&lt;input type="hidden" name="spellcheck" value="true" /&gt;
 <div id="code_toggles">
-<div id="insertterms">&lt;input type="hidden" name="s.fvgf[]" value="SubjectTerms,or,<span id="searchterms"></span>" /&gt;</div>
-<div id="fulltexttoggle">&lt;input type="hidden" name="s.fvf[]" value="IsFullText,true" /&gt;<br /></div>
-<div id="isscholarlytoggle">&lt;input type="hidden" name="s.fvf[]" value="IsScholarly,true" /&gt;<br /></div>
-<div id="incatalogtoggle">&lt;input type="hidden" name="s.fq[]" value="SourceType:(&quot;Library Catalog&quot;)" /&gt;<br /></div>
-<div id="insertdate">&lt;input type="hidden" name="s.rf" value="PublicationDate,<span id="pubdate"></span>" /&gt;<br /></div>
+<div id="insertterms"></div>
+<div id="fulltexttoggle">&lt;input type="hidden" name="s.fvf[]" value="IsFullText,true" /&gt;</div>
+<div id="isscholarlytoggle">&lt;input type="hidden" name="s.fvf[]" value="IsScholarly,true" /&gt;</div>
+<div id="incatalogtoggle">&lt;input type="hidden" name="s.fq[]" value="SourceType:('Library Catalog')" /&gt;</div>
+<div id="insertdate"></div>
 </div>
 &lt;input type="submit" value="Search" /&gt;<br />
 &lt;/form&gt;<br />
 &lt;!-- End of Custom Summon Search code --&gt;
 		</div>
 
-	</div>
+		<div id="footer">
+			<p>A tool created by <a href="http://gvsulib.com/labs" title="Grand Valley State University Libraries Labs"><abbr title="Grand Valley State University">GVSU</abbr> Library Labs</a> |
+			Modified by <abbr title="Bowling Green State University">BGSU</abbr> Library <abbr title="Information Technology Services">ITS</abbr></p>
+		</div>
 
-	<div id="footer">
-		<p>A tool created by <a href="http://gvsulib.com/labs" title="Grand Valley State University Libraries Labs"><abbr title="Grand Valley State University">GVSU</abbr> Library Labs</a> |
-		Modified by <abbr title="Bowling Green State University">BGSU</abbr> Library <abbr title="Information Technology Services">ITS</abbr></p>
 	</div>
 
 	<script>

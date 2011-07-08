@@ -37,6 +37,12 @@ input[type="button"]{
 	margin-top:1em;
 }
 
+hr{
+	color:transparent;
+	background-color: transparent;
+	border-bottom: 1px solid #AAA;
+}
+
 .column {
 	display:inline-block;
 	min-height:400px;
