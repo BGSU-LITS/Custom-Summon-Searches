@@ -36,24 +36,70 @@ var summon = function($){
 			$(input.target).hide();
 	},
 
-	// The content type checkboxes
-	contentTypes,
-
 	/**
-	 * Clears out the content types
+	 * Clears out the checkboxes above the button.
 	 */
-	clearTypes = function(){
-		$(contentTypes).find(':checked').click();
+	clearBoxes = function(btn){
+		$(btn).prev('div').find(':checked').click();
 	},
 
-	// The languages div
-	languages,
+	// The div that holds the code that toggles on and off
+	codeToggles,
 
 	/**
-	 * Clears out the languages.
+	 * Adds the Languages into the form
+	 *
+	 * @param	ele		The DOMElement to inject into
+	 * @param	list	An array of options
+	 * @param	type	The type of option to add
 	 */
-	clearLanguages = function(){
-		$(languages).find(':checked').click();
+	addOptions = function(ele, list, type){
+		var insertBox = [],
+			insertToggle = [],
+			item = "",
+			underscored = "";
+
+		for (var i = 0, len = list.length; i < len; i += 1) {
+			item = list[i];
+			underscored = item.replace(/\s/g, "_");
+			insertBox = [
+				'<input type="checkbox" data-target="',
+				type,
+				underscored,
+				'" id="',
+				type,
+				'_',
+				underscored,
+				'_checkbox"> <label for="',
+				type,
+				'_',
+				underscored,
+				'_checkbox">',
+				item,
+				'</label> <br />'
+			];
+
+			insertToggle = [
+				'<div id="',
+				type,
+				underscored,
+				'">&lt;input type="hidden" name="s.fvf[]" value="',
+				type,
+				',',
+				item,
+				'" /&gt;</div>'
+			];
+
+			$(ele).append(insertBox.join(""));
+			$(codeToggles).append(insertToggle.join(""));
+		}
+	},
+
+	/**
+	 * Hides all of the filters.
+	 */
+	hideAll = function(){
+		$(codeToggles).find('div').hide();
 	},
 
 	// The keywords
@@ -102,21 +148,16 @@ var summon = function($){
 	},
 
 	/**
-	 * Hides all of the filters.
-	 */
-	hideAll = function(){
-		$('#summon_code').find('div').hide();
-	},
-
-	/**
 	 * "Constructor"
 	 *
 	 * @param	institution	The university identifier for summon
+	 * @param	options		The options that builds the page
 	 */
-	init = function(institution){
+	init = function(institution, options){
 		$('#ul_id').html(institution);
 
-		hideAll();
+		// The div that holds the toggleable code
+		codeToggles = element('code_toggles');
 
 		// Setup date pickers
 		$.datepicker.setDefaults({
@@ -143,9 +184,12 @@ var summon = function($){
 		});
 
 		// Setup the checkboxes
-		contentTypes = element('content_types');
-		languages = element('languages');
-		
+		for (var i = 0, len = options.length; i < len; i += 1){
+			var ele = options[i];
+			addOptions(element(ele.dom), ele.items, ele.name);
+		}
+		hideAll();
+
 		$('#custom_search').find('input[type="checkbox"]').change(function(){
 			toggleCheckbox(this);
 		});
@@ -160,7 +204,6 @@ var summon = function($){
 	return {
 		'init': init,
 		'clearDates': clearDates,
-		'clearTypes': clearTypes,
-		'clearLanguages': clearLanguages
+		'clearBoxes': clearBoxes
 	};
 }(jQuery);

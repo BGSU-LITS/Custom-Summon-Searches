@@ -17,7 +17,7 @@
 	<link type="text/css" rel="stylesheet" href="css/styles.css" />
 </head>
 
-<body onload="summon.init('bgsu')">
+<body>
 	<div id="wrapper">
 		<h1>Create Custom Search</h1>
 
@@ -41,20 +41,12 @@
 					<input type="checkbox" data-target="incatalogtoggle" id="in_catalog_checkbox" /> <label for="in_catalog_checkbox">Only show items in my library&#8217;s catalog</label><br />
 				</div>
 
-				<div id="content_types" class="box">
-					<h3>Content Type:</h3>
+				<div id="locations" class="box">
+					<h3>Locations:</h3>
 
 					<div>
-						<input type="checkbox" data-target="journaltoggle" id="content_article_checkbox" value="1" class="content" /> <label for="content_article_checkbox">Journal Articles</label><br />
-						<input type="checkbox" data-target="newstoggle" id="content_news_checkbox" class="content" /> <label for="content_news_checkbox">Newspaper Articles</label><br />
-						<input type="checkbox" data-target="tradetoggle" id="content_trade_checkbox" class="content" /> <label for="content_trade_checkbox">Trade Publications</label><br />
-						<input type="checkbox" data-target="conftoggle" id="content_conference_checkbox" class="content" /> <label for="content_conference_checkbox">Conference Proceedings</label><br />
-						<input type="checkbox" data-target="booktoggle" id="content_book_checkbox" class="content" /> <label for="content_book_checkbox">Books</label><br />
-						<input type="checkbox" data-target="ebooktoggle" id="content_ebook_checkbox" class="content" /> <label for="content_ebook_checkbox">eBooks</label><br />
-						<input type="checkbox" data-target="reviewtoggle" id="content_bookreview_checkbox" class="content" /> <label for="content_bookreview_checkbox">Book Reviews</label><br />
-						<input type="checkbox" data-target="musictoggle" id="content_musicscore_checkbox" class="content" /> <label for="content_musicscore_checkbox">Music Score</label><br />
-						<input type="checkbox" data-target="audiotoggle" id="content_audiorecording_checkbox" class="content" /> <label for="content_audiorecording_checkbox">Audio Recording</label><br />
-						<input type="button" id="clear_types" onclick="summon.clearTypes()" value="Any Type" />
+						<div id="location_checkboxes"></div>
+						<input type="button" onclick="summon.clearBoxes(this)" value="Any Location" /><br />
 					</div>
 				</div>
 
@@ -63,7 +55,16 @@
 
 					<div>
 						<input type="text" id="date_start"> to <input type="text" id="date_end">
-						<input type="button" id="clear_dates" onclick="summon.clearDates()" value="Clear Dates" />
+						<input type="button" onclick="summon.clearDates()" value="Clear Dates" />
+					</div>
+				</div>
+
+				<div id="content_types" class="box">
+					<h3>Content Type:</h3>
+
+					<div>
+						<div id="type_checkboxes"></div>
+						<input type="button" onclick="summon.clearBoxes(this)" value="Any Type" />
 					</div>
 				</div>
 
@@ -71,17 +72,8 @@
 					<h3>Language:</h3>
 
 					<div>
-						<input type="checkbox" data-target="langengtoggle" id="lang_english_checkbox" /> <label for="lang_english_checkbox">English</label><br />
-						<input type="checkbox" data-target="langspantoggle" id="lang_spanish_checkbox" /> <label for="lang_spanish_checkbox">Spanish</label><br />
-						<input type="checkbox" data-target="langfretoggle" id="lang_french_checkbox" /> <label for="lang_french_checkbox">French</label><br />
-						<input type="checkbox" data-target="langgertoggle" id="lang_german_checkbox" /> <label for="lang_german_checkbox">German</label><br />
-						<input type="checkbox" data-target="langdutchtoggle" id="lang_dutch_checkbox" /> <label for="lang_dutch_checkbox">Dutch</label><br />
-						<input type="checkbox" data-target="langpoltoggle" id="lang_polish_checkbox" /> <label for="lang_polish_checkbox">Polish</label><br />
-						<input type="checkbox" data-target="langitaltoggle" id="lang_italian_checkbox" /> <label for="lang_italian_checkbox">Italian</label><br />
-						<input type="checkbox" data-target="langchitoggle" id="lang_chinese_checkbox" /> <label for="lang_chinese_checkbox">Chinese</label><br />
-						<input type="checkbox" data-target="langjaptoggle" id="lang_japanese_checkbox" /> <label for="lang_japanese_checkbox">Japanese</label><br />
-						<input type="checkbox" data-target="langarabictoggle" id="lang_arabic_checkbox" /> <label for="lang_arabic_checkbox">Arabic</label><br />
-						<input type="button" id="clear_language" onclick="summon.clearLanguages()" value="Any Language" /><br />
+						<div id="language_checkboxes"></div>
+						<input type="button" onclick="summon.clearBoxes(this)" value="Any Language" /><br />
 					</div>
 				</div>
 
@@ -91,31 +83,14 @@
 &lt;form method="GET" action="http://<span id="ul_id">YOURINSTITUTION</span>.summon.serialssolutions.com/search"&gt;<br />
 
 &lt;input type="text" name="s.q" /&gt;<br />
+&lt;input type="hidden" name="spellcheck" value="true" /&gt;<br />
+<div id="code_toggles">
 <div id="insertterms">&lt;input type="hidden" name="s.fvgf[]" value="SubjectTerms,or,<span id="searchterms"></span>" /&gt;</div>
 <div id="fulltexttoggle">&lt;input type="hidden" name="s.fvf[]" value="IsFullText,true" /&gt;<br /></div>
 <div id="isscholarlytoggle">&lt;input type="hidden" name="s.fvf[]" value="IsScholarly,true" /&gt;<br /></div>
 <div id="incatalogtoggle">&lt;input type="hidden" name="s.fq[]" value="SourceType:(&quot;Library Catalog&quot;)" /&gt;<br /></div>
 <div id="insertdate">&lt;input type="hidden" name="s.rf" value="PublicationDate,<span id="pubdate"></span>" /&gt;<br /></div>
-<div id="journaltoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Journal Article," /&gt;<br /></div>
-<div id="newstoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Newspaper Article," /&gt;<br /></div>
-<div id="tradetoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Trade Publication Article," /&gt;<br /></div>
-<div id="conftoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Conference Proceeding," /&gt;<br /></div>
-<div id="booktoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Book," /&gt;<br /></div>
-<div id="ebooktoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,eBook," /&gt;<br /></div>
-<div id="reviewtoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Book Review," /&gt;<br /></div>
-<div id="musictoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Music Score," /&gt;<br /></div>
-<div id="audiotoggle">&lt;input type="hidden" name="s.fvf[]" value="ContentType,Audio Recording," /&gt;<br /></div>
-<div id="langengtoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,English," /&gt;</div>
-<div id="langspantoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Spanish," /&gt;</div>
-<div id="langfretoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,French," /&gt;</div>
-<div id="langgertoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,German," /&gt;</div>
-<div id="langdutchtoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Dutch," /&gt;</div>
-<div id="langpoltoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Polish," /&gt;</div>
-<div id="langitaltoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Italian," /&gt;</div>
-<div id="langchitoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Chinese," /&gt;</div>
-<div id="langjaptoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Japanese," /&gt;</div>
-<div id="langarabictoggle">&lt;input type="hidden" name="s.fvf[]" value="Language,Arabic," /&gt;</div>
-&lt;input type="hidden" name="spellcheck" value="true" /&gt;<br />
+</div>
 &lt;input type="submit" value="Search" /&gt;<br />
 &lt;/form&gt;<br />
 &lt;!-- End of Custom Summon Search code --&gt;
@@ -129,5 +104,38 @@
 		</div>
 	</div>
 
+	<script>
+		/** Configuration below */
+		$(document).ready(function(){
+			summon.init('bgsu', [
+				{
+					name:"Library",
+					dom:"location_checkboxes",
+					items:[
+						"Main Library","Firelands Library","NW Regional Depository",
+						"Music Library","Popular Culture Library","Curriculum Resource Center",
+						"Internet","Archives","Great Lakes"
+					]
+				},
+				{
+					name:"ContentType",
+					dom: "type_checkboxes",
+					items:[
+						"Journal Article","Newspaper Article","Trade Publication Article",
+						"Conference Proceeding","Book","eBook","Book Review","Music Score",
+						"Audio Recording"
+					]
+				},
+				{
+					name:"Language",
+					dom: 'language_checkboxes',
+					items:[
+						"English","Spanish","French","Dutch","Polish",
+						"Italian","Chinese","Japanese","Arabic"
+					]
+				}]
+			);
+		});
+	</script>
 </body>
 </html>
