@@ -11,6 +11,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+	<script src="https://raw.github.com/BGSU-LITS/jQuery-plugins/master/tree/jquery.tree.min.js"></script>
 	<script type="text/javascript" src="js/custom_summon.js"></script>
 
 	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css" />
@@ -18,67 +19,73 @@
 </head>
 
 <body>
-	<div id="wrapper">
+	<div id="sidebar" class="column">
+		<h2>Search Filters</h2>
+		<p id="expand-collapse">
+			<a href="#" data-action="expand">Expand All</a> |
+			<a href="#" data-action="collapse">Collapse All</a>
+		</p>
+
+		<div id="search_filters">
+			<p>
+				<input type="checkbox" data-target="fulltexttoggle" id="full_text_checkbox" /> <label for="full_text_checkbox">Limit to items with full text online</label><br />
+				<input type="checkbox" data-target="isscholarlytoggle" id="is_scholarly_checkbox" /> <label for="is_scholarly_checkbox">Show only scholarly publications (including peer-review)</label><br />
+				<input type="checkbox" data-target="incatalogtoggle" id="in_catalog_checkbox" /> <label for="in_catalog_checkbox">Only show items in my library&#8217;s catalog</label><br />
+			</p>
+			
+			<div id="locations" class="box">
+				<h3>Locations:</h3>
+
+				<div>
+					<div id="location_checkboxes"></div>
+					<input type="button" onclick="summon.clearBoxes(this)" value="Any Location" /><br />
+				</div>
+			</div>
+
+			<div class="box">
+				<h3>Publication Date:</h3>
+
+				<div>
+					<input type="text" id="date_start"> to <input type="text" id="date_end">
+					<input type="button" onclick="summon.clearDates()" value="Clear Dates" />
+				</div>
+			</div>
+
+			<div id="content_types" class="box">
+				<h3>Content Type:</h3>
+
+				<div>
+					<div id="type_checkboxes"></div>
+					<input type="button" onclick="summon.clearBoxes(this)" value="Any Type" />
+				</div>
+			</div>
+
+			<div id="languages" class="box">
+				<h3>Language:</h3>
+
+				<div>
+					<div id="language_checkboxes"></div>
+					<input type="button" onclick="summon.clearBoxes(this)" value="Any Language" /><br />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="wrapper" class="column">
 		<h1>Create Custom Search</h1>
 
-		<div id="main_content">
-			<p>Summon searches nearly all of our holdings by default. To create
-				a more limited search for your students, select limiters below
-				and copy the <abbr title="HyperText Markup Language">HTML</abbr>
-				from the bottom of the page to insert into your website.</p>
+		<p>Summon searches nearly all of our holdings by default. To create
+			a more limited search for your students, select limiters below
+			and copy the <abbr title="HyperText Markup Language">HTML</abbr>
+			from the bottom of the page to insert into your website.</p>
 
-			<form action="" method="post" id="custom_search">
-				<p>
-					<label for="keywords">Subject Terms</label>:
-					<input type="text" name="keywords" id="keywords" />
-				</p>
+		<p>
+			<label for="keywords">Subject Terms</label>:
+			<input type="text" name="keywords" id="keywords" />
+		</p>
+		<p class="refine"><small>Separate terms with commas.</small></p>
 
-				<div class="refine">
-					<p><small>Separate terms with commas.</small></p>
-
-					<input type="checkbox" data-target="fulltexttoggle" id="full_text_checkbox" /> <label for="full_text_checkbox">Limit to items with full text online</label><br />
-					<input type="checkbox" data-target="isscholarlytoggle" id="is_scholarly_checkbox" /> <label for="is_scholarly_checkbox">Show only scholarly publications (including peer-review)</label><br />
-					<input type="checkbox" data-target="incatalogtoggle" id="in_catalog_checkbox" /> <label for="in_catalog_checkbox">Only show items in my library&#8217;s catalog</label><br />
-				</div>
-
-				<div id="locations" class="box">
-					<h3>Locations:</h3>
-
-					<div>
-						<div id="location_checkboxes"></div>
-						<input type="button" onclick="summon.clearBoxes(this)" value="Any Location" /><br />
-					</div>
-				</div>
-
-				<div class="box">
-					<h3>Publication Date:</h3>
-
-					<div>
-						<input type="text" id="date_start"> to <input type="text" id="date_end">
-						<input type="button" onclick="summon.clearDates()" value="Clear Dates" />
-					</div>
-				</div>
-
-				<div id="content_types" class="box">
-					<h3>Content Type:</h3>
-
-					<div>
-						<div id="type_checkboxes"></div>
-						<input type="button" onclick="summon.clearBoxes(this)" value="Any Type" />
-					</div>
-				</div>
-
-				<div id="languages" class="box">
-					<h3>Language:</h3>
-
-					<div>
-						<div id="language_checkboxes"></div>
-						<input type="button" onclick="summon.clearBoxes(this)" value="Any Language" /><br />
-					</div>
-				</div>
-
-				<h2>Copy this HTML:</h2>
-				<div id="summon_code">&lt;!-- Start of Custom Summon Search code --&gt;<br />
+		<h2>Copy this HTML:</h2>
+		<div id="summon_code">&lt;!-- Start of Custom Summon Search code --&gt;<br />
 
 &lt;form method="GET" action="http://<span id="ul_id">YOURINSTITUTION</span>.summon.serialssolutions.com/search"&gt;<br />
 
@@ -94,17 +101,23 @@
 &lt;input type="submit" value="Search" /&gt;<br />
 &lt;/form&gt;<br />
 &lt;!-- End of Custom Summon Search code --&gt;
-				</div>
-			</form>
 		</div>
 
-		<div id="footer">
-			<p>A tool created by <a href="http://gvsulib.com/labs" title="Grand Valley State University Libraries Labs"><abbr title="Grand Valley State University">GVSU</abbr> Library Labs</a> |
-			Modified by <abbr title="Bowling Green State University">BGSU</abbr> Library <abbr title="Information Technology Services">ITS</abbr></p>
-		</div>
+	</div>
+
+	<div id="footer">
+		<p>A tool created by <a href="http://gvsulib.com/labs" title="Grand Valley State University Libraries Labs"><abbr title="Grand Valley State University">GVSU</abbr> Library Labs</a> |
+		Modified by <abbr title="Bowling Green State University">BGSU</abbr> Library <abbr title="Information Technology Services">ITS</abbr></p>
 	</div>
 
 	<script>
+		$('#sidebar').tree();
+
+		$("#expand-collapse").find('a').click(function(e){
+			e.preventDefault();
+			tree[$(this).attr('data-action')+"All"]();
+		});
+		
 		/** Configuration below */
 		$(document).ready(function(){
 			summon.init('bgsu', [

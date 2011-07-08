@@ -11,6 +11,8 @@ body {
 	color: #000000;
 	font-size: 13px;
 	line-height:1.5em;
+	margin:0;
+	padding:0;
 }
 
 h1,h2,h3{
@@ -35,10 +37,14 @@ input[type="button"]{
 	margin-top:1em;
 }
 
-#wrapper{
-	width:52em;
-	margin: 0 auto;
+.column {
+	display:inline-block;
+	min-height:400px;
+	vertical-align:top;
 }
+#sidebar{ width:25%; margin-right:3%; padding:.67em; }
+#sidebar h2{ margin-top:0; }
+#wrapper{ width:68%;}
 
 #keywords{
 	width:80%;
@@ -48,23 +54,16 @@ input[type="button"]{
 	margin: -1em 0 1em 90px;
 }
 
-.box {
-	width:30%;
-	margin-right:4%;
-	display:inline-block;
-	vertical-align:top;
-	border:1px solid #AAA;
-	background-color:#EEE;
-}
+.box { background-color:#EEE; }
 
 .box > div{
 	padding:.5em;
 }
 
 .box h3{
-	margin:0 0 .4em;
+	margin:0;
 	padding: .2em .4em;
-	border-bottom:1px solid #AAA;
+	border-bottom:1px solid rgba(0,0,0,.15);
 	font-size:1.25em;
 	background-color:#FF7300;
 	color:#FFF;
@@ -83,4 +82,17 @@ input[type="button"]{
 	padding:1em;
 	border:1px dotted #444;
 	background-color:#EEE;
+}
+
+.tree-handle{
+	cursor:pointer;
+}
+.tree-handle:before{
+	content:"[+] ";
+}
+.tree-handle.tree-expanded:before{
+	content:"[-] ";
+}
+.tree-collapsed{
+	display:none;
 }

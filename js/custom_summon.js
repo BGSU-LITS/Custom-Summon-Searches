@@ -190,12 +190,12 @@ var summon = function($){
 		}
 		hideAll();
 
-		$('#custom_search').find('input[type="checkbox"]').change(function(){
+		$('#search_filters').find('input[type="checkbox"]').change(function(){
 			toggleCheckbox(this);
 		});
 
 		// and the dates
-		$('#custom_search .hasDatepicker').change(function(){
+		$('#search_filters .hasDatepicker').change(function(){
 			changeDate();
 		});
 	};
