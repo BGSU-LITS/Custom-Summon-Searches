@@ -12,7 +12,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 	<script src="https://raw.github.com/BGSU-LITS/jQuery-plugins/master/tree/jquery.tree.min.js"></script>
-	<script type="text/javascript" src="js/custom_summon.js"></script>
+	<script type="text/javascript" src="js/summon.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
 
 	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css" />
 	<link type="text/css" rel="stylesheet" href="css/styles.css" />
@@ -87,7 +88,7 @@
 		<h2>Copy this HTML:</h2>
 		<div id="summon_code">&lt;!-- Start of Custom Summon Search code --&gt;<br />
 
-&lt;form method="GET" action="http://<span id="ul_id">YOURINSTITUTION</span>.summon.serialssolutions.com/search"&gt;<br />
+&lt;form method="GET" action="http://<span id="ul_id"></span>.summon.serialssolutions.com/search"&gt;<br />
 
 &lt;input type="text" name="s.q" /&gt;<br />
 &lt;input type="hidden" name="spellcheck" value="true" /&gt;<br />
@@ -120,34 +121,7 @@
 		
 		/** Configuration below */
 		$(document).ready(function(){
-			summon.init('bgsu', [
-				{
-					name:"Library",
-					dom:"location_checkboxes",
-					items:[
-						"Main Library","Firelands Library","NW Regional Depository",
-						"Music Library","Popular Culture Library","Curriculum Resource Center",
-						"Internet","Archives","Great Lakes"
-					]
-				},
-				{
-					name:"ContentType",
-					dom: "type_checkboxes",
-					items:[
-						"Journal Article","Newspaper Article","Trade Publication Article",
-						"Conference Proceeding","Book","eBook","Book Review","Music Score",
-						"Audio Recording"
-					]
-				},
-				{
-					name:"Language",
-					dom: 'language_checkboxes',
-					items:[
-						"English","Spanish","French","Dutch","Polish",
-						"Italian","Chinese","Japanese","Arabic"
-					]
-				}]
-			);
+			summon.init(summon_config.id, summon_config.items);
 		});
 	</script>
 </body>
