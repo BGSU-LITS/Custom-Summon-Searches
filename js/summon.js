@@ -58,8 +58,7 @@ var summon = function($){
 	 */
 	addOptions = function(ele, list, type){
 		for (var i = 0, len = list.length; i < len; i += 1) {
-			addOption(ele, type, list[i], list[i])
-			item = list[i];
+			addOption(ele, type, list[i], list[i]);
 		}
 	},
 
