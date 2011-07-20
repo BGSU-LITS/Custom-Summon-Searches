@@ -9,9 +9,9 @@
 	<meta name="author" content="Dave Widmer, dwidmer@bgsu.edu" />
 	<meta name="description" content="Create Custom Scoped Summon" />
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
-	<script src="https://raw.github.com/BGSU-LITS/jQuery-plugins/master/tree/jquery.tree.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tree.min.js"></script>
 	<script type="text/javascript" src="js/summon.js"></script>
 	<script type="text/javascript" src="js/config.js"></script>
 
@@ -28,11 +28,7 @@
 		</p>
 
 		<div id="search_filters">
-			<p>
-				<input type="checkbox" data-target="fulltexttoggle" id="full_text_checkbox" /> <label for="full_text_checkbox">Limit to items with full text online</label><br />
-				<input type="checkbox" data-target="isscholarlytoggle" id="is_scholarly_checkbox" /> <label for="is_scholarly_checkbox">Show only scholarly publications (including peer-review)</label><br />
-				<input type="checkbox" data-target="incatalogtoggle" id="in_catalog_checkbox" /> <label for="in_catalog_checkbox">Only show items in my library&#8217;s catalog</label><br />
-			</p>
+			<p id="standard"></p>
 			
 			<div id="locations" class="box">
 				<h3>Locations:</h3>
@@ -85,6 +81,8 @@
 		</p>
 		<p class="refine"><small>Separate terms with commas.</small></p>
 
+		<hr />
+
 		<h2>Try it!</h2>
 		<form method="GET" action="" target="_blank" id="try_it_form">
 			<input type="text" name="s.q" style="width:300px;" />
@@ -108,9 +106,6 @@
 &lt;input type="hidden" name="spellcheck" value="true" /&gt;
 <div id="code_toggles">
 <div id="insertterms"></div>
-<div id="fulltexttoggle">&lt;input type="hidden" name="s.fvf[]" value="IsFullText,true" /&gt;</div>
-<div id="isscholarlytoggle">&lt;input type="hidden" name="s.fvf[]" value="IsScholarly,true" /&gt;</div>
-<div id="incatalogtoggle">&lt;input type="hidden" name="s.fq[]" value='SourceType:("Library Catalog")' /&gt;</div>
 <div id="insertdate"></div>
 </div>
 &lt;input type="submit" value="Search" /&gt;<br />

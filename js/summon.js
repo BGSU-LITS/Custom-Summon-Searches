@@ -21,6 +21,9 @@ var summon = function($){
 		return document.getElementById(id);
 	},
 
+	// An object that holds the code for each hidden input
+	inputs = {},
+
 	/**
 	 * Toggles the display of the code related to the checkboxes
 	 *
@@ -31,10 +34,7 @@ var summon = function($){
 			input.target = $("#" + $(input).attr('data-target'))[0];
 		}
 
-		(input.checked) ?
-			$(input.target).show() :
-			$(input.target).hide();
-
+		$(input.target).html(input.checked ? inputs[input.target.id] : "");
 		updateForm();
 	},
 
@@ -57,52 +57,45 @@ var summon = function($){
 	 * @param	type	The type of option to add
 	 */
 	addOptions = function(ele, list, type){
-		var insertBox = [],
-			insertToggle = [],
-			item = "",
-			underscored = "";
-
 		for (var i = 0, len = list.length; i < len; i += 1) {
+			addOption(ele, type, list[i], list[i])
 			item = list[i];
-			underscored = item.replace(/\s/g, "_");
-			insertBox = [
-				'<input type="checkbox" data-target="',
-				type,
-				underscored,
-				'" id="',
-				type,
-				'_',
-				underscored,
-				'_checkbox"> <label for="',
-				type,
-				'_',
-				underscored,
-				'_checkbox">',
-				item,
-				'</label> <br />'
-			];
-
-			insertToggle = [
-				'<div id="',
-				type,
-				underscored,
-				'">&lt;input type="hidden" name="s.fvf[]" value="',
-				type,
-				',',
-				item,
-				'" /&gt;</div>'
-			];
-
-			$(ele).append(insertBox.join(""));
-			$(codeToggles).append(insertToggle.join(""));
 		}
+	},
+
+	/**
+	 * Adds an Option to the specified dom
+	 *
+	 * @param	dom		The dom element to inject into
+	 * @param	type	The name of the filter
+	 * @param	value	The filter value
+	 * @param	label	The checkbox label
+	 * @param	name	The filter name
+	 * @param	c		The concatination string
+	 */
+	addOption = function(dom, type, value, label, name, c){
+		c = c || ",";
+		name = name || "s.fvf[]";
+
+		var shrunk = value.replace(/\W/g, ""),
+			insertBox = '<input type="checkbox" data-target="'+type+shrunk+
+				'" id="'+type+'_'+shrunk+'_checkbox"> <label for="'+
+				type+'_'+shrunk+'_checkbox">'+label+'</label> <br />',
+
+			insertToggle = '<div id="'+type+shrunk+'"></div>';
+
+		$(dom).append(insertBox);
+		$(codeToggles).append(insertToggle);
+
+		inputs[type+shrunk] = '&lt;input type="hidden" name="'+name+'" value=\'' +
+			type+c+value+'\' /&gt';
 	},
 
 	/**
 	 * Hides all of the filters.
 	 */
 	hideAll = function(){
-		$(codeToggles).find('div').hide();
+		$(codeToggles).find('div').html();
 	},
 
 	// The keywords
@@ -155,14 +148,11 @@ var summon = function($){
 	// Try it form options element
 	tryItOptions = null,
 
-	// The div that holds the summon code
-	summonCode = null,
-
 	/**
 	 * Updates the try it form
 	 */
 	updateForm = function(){
-		$(tryItOptions).html($(codeToggles).find(":visible").text());
+		$(tryItOptions).html($(codeToggles).text());
 	},
 
 	/**
@@ -208,6 +198,11 @@ var summon = function($){
 		});
 
 		// Setup the checkboxes
+		var dom = element("standard");
+		addOption(dom, "IsFulltext", "true", "Limit to items with full text online");
+		addOption(dom, "IsScholarly", "true", "Show only scholarly publications (including peer-review)");
+		addOption(dom, "SourceType", '("Library Catalog")', "Only show items in my library's catalog", "s.fq[]", ":");
+
 		for (var i = 0, len = options.length; i < len; i += 1){
 			var ele = options[i];
 			addOptions(element(ele.dom), ele.items, ele.name);
