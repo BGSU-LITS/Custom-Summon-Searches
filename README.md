@@ -35,8 +35,8 @@ been modified from the original tool by Matthew Reidsma (reidsmam@gvsu.edu).
 
 ## Demo
 
-You can view a live version of this tool at [URL HERE] or the original tool at
-http://gvsulib.com/labs/custom_summon.
+You can view a live version of this tool at http://ul2.bgsu.edu/labs/summon-builder
+or the original tool at http://gvsulib.com/labs/custom_summon.
 
 ## Copyright
 
